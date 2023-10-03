@@ -13,7 +13,7 @@ function convertGrid(){
     var gridHeader = 'gridHeader:'; 
     var space =" ";
     var arrLg =[];
-    if(grid ==0 && gridHdr >0){
+    if(gridHdr >0){
     for(var i = gridHdr-2; i > 0; i--) {
       // debugger 
       if(beforContent.charAt(i)== '\n')
@@ -53,7 +53,11 @@ function convertGrid(){
       afterContent = afterContent.replace(gridHeader,'totalCntString: "Total %d result(s)", \n' +space + gridHeader); 
    }
    var toolbarId = '#';
-   for(var j = grid + 6;j<beforContent.length; j++ ){ 
+   var q = 0;
+   if(grid !=-1){
+      q = grid + 6;
+   }
+   for(var j = q;j<beforContent.length; j++ ){ 
       if(beforContent.trim().charAt(j) == ':') 
       break;
       toolbarId += beforContent.trim().charAt(j); 
@@ -66,8 +70,7 @@ function convertGrid(){
        if(beforContent.charAt(i)==',') 
             break; 
             cntTemp += beforContent.charAt(i); 
-      } 
-      
+      }  
       afterContent = afterContent.replace('toolbarPosition' + cntTemp,'toolbarPosition:'+'"' + toolbarId.trim() + '"'); 
       cntTemp = '';
    }else{ 
@@ -109,7 +112,7 @@ function convertGrid(){
          } 
          var r='' 
             for(var k = i; k <beforContent.length; k++){ 
-               if(beforContent.charAt(k)==',' )
+               if((beforContent.charAt(k)== ',') || (beforContent.charAt(k)=='}' && beforContent.charAt(k+1).trim()==','))
                break;
                r += beforContent.charAt(k) 
             } 
@@ -119,11 +122,12 @@ function convertGrid(){
                if((dtTmp.startsWith('"%$')== false || dtTmp.substring(dtTmp.length-3) !='$%"')&& (dtTmp.replace(/"/g,'').trim()!='')){  
                   var tmp = r.replace(dtTmp.replace(/"/g,''),'%$'+dtTmp.replace(/"/g,'')+':nokey$%')
                   arrLg.push(dtTmp.replace(/"/g,''));
-                  afterContent = afterContent.replace(r,tmp+',align: left');    
+                  afterContent = afterContent.replace(r,tmp+',align:"left"');    
                }else{
-                  afterContent = afterContent.replace(r,r+',align: left');  
+                  if(dtTmp.replace(/"/g,'').trim()!='')
+                  afterContent = afterContent.replace(r, r+',align:"left"');  
                }
-               
+               r='';
             }else{
                if((dtTmp.startsWith('"%$')== false || dtTmp.substring(dtTmp.length-3) !='$%"')&& (dtTmp.replace(/"/g,'').trim()!='')){ 
                   var tmp = r.replace(dtTmp.replace(/"/g,''),'%$'+dtTmp.replace(/"/g,'')+':nokey$%')  
@@ -140,12 +144,12 @@ function convertGrid(){
       document.getElementById("reSult").value = afterContent
    } 
    
-   if(arrLg.length > 0){ 
-      var arrTmp= arrLg.toString();  
-      document.getElementById('multiLaguage').innerHTML= arrTmp.replace(/,/g,'\n')
-      document.querySelector("dialog").showModal();
-      // document.write('multi laguage: \n'+ arrTmp.replace(',','\n')); 
-   }
+   // if(arrLg.length > 0){ 
+   //    var arrTmp= arrLg.toString();  
+   //    document.getElementById('multiLaguage').innerHTML= arrTmp.replace(/,/g,'\n')
+   //    document.querySelector("dialog").showModal();
+   //    // document.write('multi laguage: \n'+ arrTmp.replace(',','\n')); 
+   // }
    arrLg = [];  
 }else{
    alert("data is not valid");

@@ -1,97 +1,58 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Convert UI/UX</title>
-    <!-- Nếu bạn có tập tin JavaScript bên ngoài, bạn có thể nhúng nó như sau: -->
     <script src="main.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <style>
-        #btnC, #btnG, #btnH {
-            background-color: rgb(83, 166, 222);
-            color:azure;
-            padding: auto;
-            border-radius:3px;
-            border-color: rgb(77, 158, 245);
-        }
-        #btnC:hover {
-            background-color: rgb(146, 203, 247); 
-            border-color: rgb(102, 152, 206);
-        }
-        #btnG:hover {
-            background-color: rgb(146, 203, 247); 
-            border-color: rgb(102, 152, 206);
-        }
-        #btnH:hover {
-            background-color: rgb(146, 203, 247); 
-            border-color: rgb(102, 152, 206);
-        }
-        dialog{
-            width: 380px;
-            padding: 2px;
-            border-radius: 5px; 
-        }
-    </style>
+    <script src="convert_Header_Table.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body>
-    <!-- Nội dung trang web được đặt ở đây -->
-    <div class="container">
-        <div class="row">
-            <div class="col bg-danger">
-                
-            </div> 
-        </div>
-    </div>
-    <hr>
-    <div style="padding: 20px;" class="row">
-        <div class="col-md-6">
-            <div style="padding-bottom: 5px;" class="col-md-12">  
-                <span><button id ="btnH" onclick="convertTable()">Header</button></span> 
-                <span><button id ="btnG" onclick ="convertGrid()">Grid</button></span> 
-            </div>  
-            <textarea style="height: 600px;" class="col-md-12"  
-            class="copy" name="" id="content"></textarea> 
-        </div>
-        <div class="col-md-6">
-            <div style="padding-bottom: 5px;" class="col-md-12">  
-                <span><button  id="btnC" > copy</button></span> 
+    <main>
+        <section>
+            <div class="container-fluid">
+                <h1></h1>
+                <p></p>
+                <div class="row">
+                    <div class="col p-3">
+                        <div style="padding: 5px;">
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="convertHTML()">HTML</button>
+                            <button type="button"  class="btn btn-outline-primary btn-sm" onclick="convertHeaderTable()">Header-Table</button>
+                            <button type="button" class="btn btn-outline-info btn-sm" onclick="convertMainTable()">Main-Table</button> 
+                            <button type="button" class="btn btn-outline-info btn-sm" onclick="convertFilterTable()">Filter-Table</button> 
+                        </div> 
+                        <textarea class="col-12" id="input" style="height: 700px"> 
+                        </textarea>
+                    </div>
+                    <div class="col p-3">
+                        <div style="padding: 5px;">
+                            <button type="button" id="btnC" class="btn btn-outline-dark btn-sm">Copy</button>
+                        </div>
+                        <textarea class="col-12" id="ouput" style="height: 700px;"> 
+                        </textarea>
+                    </div>
+                    <textarea name="reSult" id="reSult" class="reSult" cols="30" rows="10" hidden></textarea>
+                </div>
             </div>
-            <textarea style="height: 600px; " class="col-md-12" class="c" name="" id="reSult"> </textarea> 
-        </div>  
-    </div> 
-    <dialog>
-        <div style="background-color: rgb(108, 180, 146); height: 30px;color: rgb(245, 246, 248);">
-            <b style="padding: 5px;">Muiti Langguage</b>
-        </div> 
-        <div class="dialog"> 
-            <textarea  style="padding: 2px; width:373px; border: node; height: 250px; color: blue;" id="multiLaguage"></textarea>
-            <div>
-                <button onclick="closeDialog()">Close</button>
-                <button id="btnCopyDialog">Copy</button>
-            </div> 
-        </div>
-        
-        
-    </dialog>
+        </section>
+    </main>
+
+
 </body>
+
 </html>
 <script>
-    jQuery(function($){
-	$(document).on('click','#btnC',function(e){ 
-		e.preventDefault();
-		var copyText = document.getElementById("reSult").value;
-		navigator.clipboard.writeText(copyText); 
-	});   
-});
-
-jQuery(function($){
-	$(document).on('click','#btnCopyDialog',function(e){  
-		e.preventDefault();
-		var copyText = document.getElementById("multiLaguage").value;
-		navigator.clipboard.writeText(copyText); 
-        document.querySelector("dialog").close();
-	});
-});
+    $(document).ready(function () {
+        $("#btnC").click(function (e) {
+            debugger
+            e.preventDefault();
+            var copyText = document.getElementById("ouput").value;
+            navigator.clipboard.writeText(copyText);
+        });  
+    }); 
 </script>
-

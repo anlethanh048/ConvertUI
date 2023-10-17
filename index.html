@@ -32,7 +32,7 @@
                     <div class="col p-3">
                         <div style="padding: 5px;">
                             <button type="button" id="btnC" class="btn btn-outline-dark btn-sm">Copy</button>
-                            <a style="float: right;" href="https://webformatter.com/html ">HTML Formatter</a>
+                            <a style="float: right;" onclick="myFunction()" href="#">HTML Formatter</a>
                         </div>
                         <textarea class="col-12" id="ouput" style="height: 700px;"> 
                         </textarea>
@@ -56,4 +56,7 @@
             navigator.clipboard.writeText(copyText);
         });  
     }); 
+    function myFunction() {
+    window.open("https://webformatter.com/html"); 
+}
 </script>
